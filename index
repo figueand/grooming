@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Centro de Innovación Tecnológica - Aldeas Infantiles Argentina (Filial Mendoza)</title>
+  <title>Taller Interactivo: No Todo lo que Ves Es Real</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Google Fonts: Plus Jakarta Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -21,210 +20,131 @@
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            aldeas: {
-              blue: '#0099e5',
-              cyan: '#00bcff',
-              navy: '#0b2545',
-              dark: '#031122'
+            brand: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a',
             },
             accent: {
               purple: '#a855f7',
               pink: '#ec4899',
+              cyan: '#06b6d4',
               amber: '#f59e0b',
-              emerald: '#10b981',
-              red: '#ef4444',
             }
           },
           animation: {
             'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             'bounce-short': 'bounce 1s infinite',
-            'glow-pulse': 'glowPulse 2s infinite ease-in-out',
-          },
-          keyframes: {
-            glowPulse: {
-              '0%, 100%': { boxShadow: '0 0 15px rgba(0, 188, 255, 0.4)' },
-              '50%': { boxShadow: '0 0 30px rgba(0, 188, 255, 0.8)' },
-            }
           }
         }
       }
     }
   </script>
-
   <style>
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #031122; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-    .glow-aldeas { box-shadow: 0 0 25px -5px rgba(0, 188, 255, 0.35); }
-    .glow-purple { box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.35); }
-    .glow-green { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.35); }
-
-    /* Glassmorphism */
-    .glass-card {
-      background: rgba(11, 37, 69, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-
-    /* Magnifier Lens Style */
-    .magnifier-lens {
-      pointer-events: none;
-      position: absolute;
-      border: 3px solid #00bcff;
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(0, 188, 255, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
-      background-repeat: no-repeat;
-      display: none;
-      z-index: 30;
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
     }
-
-    /* Print styling for certificate */
-    @media print {
-      body * { visibility: hidden; }
-      #printable-certificate, #printable-certificate * { visibility: visible; }
-      #printable-certificate { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    
+    .glow-purple {
+      box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.3);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.3);
+    }
+    .glow-green {
+      box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
     }
   </style>
 </head>
+<body class="h-full flex flex-col font-sans antialiased overflow-x-hidden selection:bg-purple-500 selection:text-white">
 
-<body class="h-full flex flex-col font-sans antialiased overflow-x-hidden bg-slate-950 text-slate-100 selection:bg-cyan-500">
-
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
-      
-      <!-- Institutional Logo & Title -->
-      <div class="flex items-center space-x-3.5">
-        <!-- Embedded SVG Official Logo Container with Upload Override Option -->
-        <div class="relative group flex-shrink-0">
-          <div id="logo-preview-box" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-2xl flex items-center justify-center p-1.5 shadow-lg shadow-cyan-500/20 overflow-hidden cursor-pointer border-2 border-cyan-400">
-            <!-- EMBEDDED OFFICIAL ALDEAS INFANTILES SOS VECTOR LOGO -->
-            <svg id="official-logo-svg" class="w-full h-full text-[#0099e5]" viewBox="0 0 200 240" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 30,10 C 18,10 10,18 10,30 L 10,95 C 10,107 18,115 30,115 L 170,115 C 182,115 190,107 190,95 L 190,30 C 190,18 182,10 170,10 Z M 20,102 L 180,102 M 55,20 C 62,20 68,26 68,33 C 68,40 62,46 55,46 C 48,46 42,40 42,33 C 42,26 48,20 55,20 Z M 145,20 C 152,20 158,26 158,33 C 158,40 152,46 145,46 C 138,46 132,40 132,33 C 132,26 138,20 145,20 Z M 55,50 C 65,50 78,57 88,72 L 72,85 C 65,75 58,70 55,70 C 52,70 45,75 38,85 L 22,72 C 32,57 45,50 55,50 Z M 145,50 C 155,50 168,57 178,72 L 162,85 C 155,75 148,70 145,70 C 142,70 135,75 128,85 L 112,72 C 122,57 135,50 145,50 Z M 100,20 L 100,102 M 90,60 C 80,50 70,55 70,55 C 70,55 75,70 90,65 Z M 110,60 C 120,50 130,55 130,55 C 130,55 125,70 110,65 Z" fill-rule="evenodd"/>
-              <!-- LOGO TYPOGRAPHY -->
-              <text x="100" y="145" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="28" fill="#0099e5">ALDEAS</text>
-              <text x="100" y="175" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="24" fill="#0099e5">INFANTILES</text>
-              <text x="100" y="225" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="52" fill="#0099e5">SOS</text>
-            </svg>
-            <img id="institutional-logo-img" src="" class="hidden w-full h-full object-contain" alt="Logo Reemplazado">
-          </div>
-          <!-- Upload overlay trigger -->
-          <label for="logo-file-input" class="absolute inset-0 bg-slate-950/80 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-[9px] font-bold text-cyan-300 text-center p-1">
-            <i data-lucide="upload" class="w-3.5 h-3.5 mb-0.5"></i>
-            Cambiar
-          </label>
-          <input type="file" id="logo-file-input" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+  <!-- Top Header Navigation -->
+  <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-gradient-to-tr from-purple-600 to-indigo-500 rounded-xl shadow-lg shadow-purple-500/20">
+          <i data-lucide="shield-alert" class="w-6 h-6 text-white"></i>
         </div>
-
         <div>
-          <div class="flex items-center flex-wrap gap-2">
-            <h1 class="text-sm sm:text-base lg:text-lg font-black tracking-tight text-white leading-tight">
-              Centro de Innovación Tecnológica
-            </h1>
-            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] sm:text-xs text-cyan-300 font-bold whitespace-nowrap">
-              Aldeas Infantiles Argentina • Filial Mendoza
-            </span>
-          </div>
-          <p class="text-xs text-slate-400 font-medium hidden sm:block">
-            Taller Práctico de Prevención de Grooming y Perfiles Falsos con IA (60 min)
-          </p>
+          <h1 class="text-lg font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+            No Todo lo que Ves Es Real
+          </h1>
+          <p class="text-xs text-slate-400 hidden sm:block">Prevención de Grooming y Perfiles Falsos por IA</p>
         </div>
       </div>
 
-      <!-- Controls: Timer, Mode & Settings -->
-      <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-        
-        <!-- Timer -->
-        <div class="flex items-center space-x-2 bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
-          <i data-lucide="clock" class="w-4 h-4 text-cyan-400 animate-pulse"></i>
-          <span class="hidden lg:inline text-slate-400 font-medium">Tiempo:</span>
-          <span id="workshop-timer" class="font-mono font-bold text-cyan-300">00:00</span>
-          <button onclick="toggleTimer()" class="text-slate-400 hover:text-white p-0.5" title="Pausar/Reanudar Reloj">
-            <i data-lucide="pause" id="timer-icon" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <!-- Pause / Freeze Screen -->
-        <button onclick="toggleFreezeMode()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30 transition-all">
-          <i data-lucide="pause-circle" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Pausar / Debate</span>
-        </button>
-
-        <!-- Audio Toggle -->
-        <button id="audio-toggle" onclick="toggleAudio()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors" title="Sonido">
-          <i data-lucide="volume-2" id="audio-icon" class="w-4 h-4"></i>
-        </button>
-
-        <!-- Teacher Notes Button -->
-        <button onclick="toggleTeacherNotes()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/30 transition-all">
-          <i data-lucide="book-open" class="w-4 h-4 inline sm:mr-1"></i>
-          <span class="hidden sm:inline">Guía Profe</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Desktop Tab Navigation -->
-    <div class="border-t border-slate-800/80 bg-slate-950/80 hidden md:block">
-      <div class="max-w-7xl mx-auto px-4 flex space-x-2 py-2 overflow-x-auto">
-        <button onclick="switchTab('tab-challenge')" id="btn-tab-challenge" class="nav-tab active flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-white bg-cyan-600 shadow-md">
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center space-x-1 bg-slate-950/60 p-1.5 rounded-xl border border-slate-800">
+        <button onclick="switchTab('tab-challenge')" id="btn-tab-challenge" class="nav-tab active flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-white bg-purple-600/90 shadow">
           <i data-lucide="sparkles" class="w-4 h-4"></i>
-          <span>1. Desafío Rostros IA (10m)</span>
+          <span>1. Desafío IA</span>
         </button>
-        <button onclick="switchTab('tab-builder')" id="btn-tab-builder" class="nav-tab flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <button onclick="switchTab('tab-builder')" id="btn-tab-builder" class="nav-tab flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/60">
           <i data-lucide="user-plus" class="w-4 h-4"></i>
-          <span>2. Perfil Falso (12m)</span>
+          <span>2. Perfil Falso</span>
         </button>
-        <button onclick="switchTab('tab-chat')" id="btn-tab-chat" class="nav-tab flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
-          <i data-lucide="message-square-warning" class="w-4 h-4"></i>
-          <span>3. Chat & Red Flags (15m)</span>
+        <button onclick="switchTab('tab-anatomy')" id="btn-tab-anatomy" class="nav-tab flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <i data-lucide="git-commit" class="w-4 h-4"></i>
+          <span>3. El Engaño</span>
         </button>
-        <button onclick="switchTab('tab-scenarios')" id="btn-tab-scenarios" class="nav-tab flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <button onclick="switchTab('tab-quiz')" id="btn-tab-quiz" class="nav-tab flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/60">
           <i data-lucide="gamepad-2" class="w-4 h-4"></i>
-          <span>4. Casos de Estudio (12m)</span>
+          <span>4. Trivias & Casos</span>
         </button>
-        <button onclick="switchTab('tab-shield')" id="btn-tab-shield" class="nav-tab flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
-          <i data-lucide="award" class="w-4 h-4"></i>
-          <span>5. Certificado Digital (10m)</span>
+      </nav>
+
+      <!-- Audio & Presenter Controls -->
+      <div class="flex items-center space-x-2">
+        <button id="audio-toggle" onclick="toggleAudio()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors" title="Efectos de Sonido">
+          <i data-lucide="volume-2" id="audio-icon" class="w-5 h-5"></i>
+        </button>
+        <button onclick="toggleTeacherNotes()" class="flex items-center space-x-1 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-medium transition-colors border border-amber-500/20">
+          <i data-lucide="lightbulb" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Guía Profe</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Bottom Navigation Bar -->
-  <div class="md:hidden bg-slate-900/95 border-t border-slate-800 fixed bottom-0 inset-x-0 z-50 px-2 py-2 flex justify-around backdrop-blur-md">
-    <button onclick="switchTab('tab-challenge')" class="mobile-nav-btn p-2 rounded-xl text-cyan-400 flex flex-col items-center">
+  <!-- Mobile Nav Bottom -->
+  <div class="md:hidden bg-slate-900 border-t border-slate-800 fixed bottom-0 inset-x-0 z-50 px-2 py-2 flex justify-around">
+    <button onclick="switchTab('tab-challenge')" class="mobile-nav-btn p-2 rounded-lg text-purple-400 flex flex-col items-center">
       <i data-lucide="sparkles" class="w-5 h-5"></i>
-      <span class="text-[9px] mt-0.5 font-bold">1. Rostros</span>
+      <span class="text-[10px] mt-0.5 font-medium">IA</span>
     </button>
-    <button onclick="switchTab('tab-builder')" class="mobile-nav-btn p-2 rounded-xl text-slate-400 flex flex-col items-center">
+    <button onclick="switchTab('tab-builder')" class="mobile-nav-btn p-2 rounded-lg text-slate-400 flex flex-col items-center">
       <i data-lucide="user-plus" class="w-5 h-5"></i>
-      <span class="text-[9px] mt-0.5 font-bold">2. Perfil</span>
+      <span class="text-[10px] mt-0.5 font-medium">Perfil</span>
     </button>
-    <button onclick="switchTab('tab-chat')" class="mobile-nav-btn p-2 rounded-xl text-slate-400 flex flex-col items-center">
-      <i data-lucide="message-square-warning" class="w-5 h-5"></i>
-      <span class="text-[9px] mt-0.5 font-bold">3. Chat</span>
+    <button onclick="switchTab('tab-anatomy')" class="mobile-nav-btn p-2 rounded-lg text-slate-400 flex flex-col items-center">
+      <i data-lucide="git-commit" class="w-5 h-5"></i>
+      <span class="text-[10px] mt-0.5 font-medium">Engaño</span>
     </button>
-    <button onclick="switchTab('tab-scenarios')" class="mobile-nav-btn p-2 rounded-xl text-slate-400 flex flex-col items-center">
+    <button onclick="switchTab('tab-quiz')" class="mobile-nav-btn p-2 rounded-lg text-slate-400 flex flex-col items-center">
       <i data-lucide="gamepad-2" class="w-5 h-5"></i>
-      <span class="text-[9px] mt-0.5 font-bold">4. Casos</span>
-    </button>
-    <button onclick="switchTab('tab-shield')" class="mobile-nav-btn p-2 rounded-xl text-slate-400 flex flex-col items-center">
-      <i data-lucide="award" class="w-5 h-5"></i>
-      <span class="text-[9px] mt-0.5 font-bold">5. Certificado</span>
+      <span class="text-[10px] mt-0.5 font-medium">Trivias</span>
     </button>
   </div>
 
-  <!-- Teacher Notes Bar -->
-  <div id="teacher-notes" class="hidden bg-slate-900/95 border-b border-purple-500/30 px-4 py-3 text-xs sm:text-sm text-slate-300 relative z-40 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto flex items-start justify-between gap-3">
+  <!-- Teacher Notes Modal Banner -->
+  <div id="teacher-notes" class="hidden bg-slate-900/95 border-b border-amber-500/30 px-4 py-3 text-sm text-slate-300 relative z-40 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto flex items-start justify-between">
       <div class="flex items-start space-x-3">
-        <i data-lucide="lightbulb" class="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0"></i>
+        <i data-lucide="book-open" class="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0"></i>
         <div>
-          <span class="font-bold text-purple-400">Guía Pedagógica Aldeas Infantiles Mendoza: </span>
-          <span id="teacher-note-text">Inicia preguntando si alguna vez hablaron con un desconocido en Fortnite o Roblox. Muestra el temporizador para ajustar la dinámica a los 60 minutos.</span>
+          <span class="font-bold text-amber-400">Guía para el Docente: </span>
+          <span id="teacher-note-text">Haz preguntas abiertas a la clase antes de presionar los botones. Permite que los chicos voten alzando la mano para exponer la falsa seguridad digital.</span>
         </div>
       </div>
       <button onclick="toggleTeacherNotes()" class="text-slate-400 hover:text-white p-1">
@@ -233,205 +153,193 @@
     </div>
   </div>
 
-  <!-- Freeze Screen Overlay (Modo Debate) -->
-  <div id="freeze-overlay" class="hidden fixed inset-0 bg-slate-950/95 z-50 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center animate-fadeIn">
-    <div class="p-5 bg-amber-500/20 text-amber-400 rounded-full border border-amber-500/30 mb-4 animate-bounce">
-      <i data-lucide="pause-circle" class="w-12 h-12"></i>
-    </div>
-    <h2 class="text-2xl sm:text-4xl font-black text-white">MODO DEBATE Y REFLEXIÓN EN EL AULA</h2>
-    <p class="mt-3 text-slate-300 max-w-xl text-sm sm:text-base leading-relaxed">
-      El equipo del Centro de Innovación Tecnológica ha pausado la pantalla. Miren al frente para conversar sobre lo observado antes de continuar.
-    </p>
-    <button onclick="toggleFreezeMode()" class="mt-6 px-8 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-xl transition-transform active:scale-95">
-      Reanudar Taller
-    </button>
-  </div>
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-20 md:pb-8">
 
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
-
-    <!-- MODULE 1: AI PHOTO CHALLENGE -->
-    <section id="tab-challenge" class="tab-content block space-y-6">
-      <div class="bg-gradient-to-r from-slate-900 via-aldeas-navy to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+    <!-- SECTION 1: EL DESAFÍO DE LAS FOTOS DE IA -->
+    <section id="tab-challenge" class="tab-content block space-y-6 animate-fadeIn">
+      <div class="bg-gradient-to-r from-slate-900 via-purple-950/40 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-3">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>Módulo 1 (10 - 12 minutos)</span>
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+            <span>Dinámica de Calentamiento</span>
           </div>
-          <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            Desafío CiberDetective: ¿Real o Inteligencia Artificial?
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            ¿Quién es REAL y quién es FALSO?
           </h2>
           <p class="mt-2 text-slate-300 text-sm sm:text-base leading-relaxed">
-            Observa atentamente a estas 4 personas que solicitaron amistad. Vota en clase si crees que son reales. Luego utiliza la <strong class="text-cyan-300">"Lupa Inspectora"</strong> para analizar las fallas que comete la IA en los ojos, cabello y fondos.
+            Observa atentamente a estas 4 personas que solicitan tu amistad en redes. Haz clic sobre cada una para indicar si crees que es una persona real o un rostro inventado por Inteligencia Artificial.
           </p>
         </div>
       </div>
 
       <!-- Photo Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="ai-photo-grid">
-        <!-- JS rendered -->
+        <!-- Photo Cards populated by JS -->
       </div>
 
-      <!-- Magnifier Inspection Tool -->
-      <div id="inspector-modal" class="hidden glass-card rounded-3xl p-6 border-2 border-cyan-500/40 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div class="flex items-center space-x-2 text-cyan-300">
-            <i data-lucide="search" class="w-5 h-5"></i>
-            <h3 class="font-bold text-white text-base">Lupa Inspectora de Artefactos IA</h3>
-          </div>
-          <button onclick="closeInspector()" class="text-slate-400 hover:text-white p-1">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <p class="text-xs text-slate-300">Mueve el cursor o toque de pantalla sobre la imagen para ampliar los detalles sospechosos:</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <div class="relative overflow-hidden rounded-2xl bg-slate-950 border border-slate-800 mx-auto max-w-sm cursor-crosshair" id="magnifier-container">
-            <img id="inspector-img" src="" class="w-full h-80 object-cover">
-            <div id="magnifier-lens" class="magnifier-lens"></div>
-          </div>
-          <div class="space-y-3 bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
-            <h4 class="text-sm font-bold text-amber-400 flex items-center gap-1.5">
-              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-              Fallas típicas detectadas en este rostro:
-            </h4>
-            <ul id="inspector-clues-list" class="space-y-2 text-xs text-slate-300 list-disc list-inside">
-              <!-- JS populated -->
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Grand Reveal Card -->
-      <div id="ai-reveal-card" class="hidden bg-gradient-to-br from-aldeas-navy via-slate-900 to-indigo-950/80 border-2 border-cyan-500/50 rounded-3xl p-6 sm:p-8 glow-aldeas transition-all duration-500">
+      <!-- Big Reveal Section (Initially Hidden) -->
+      <div id="ai-reveal-card" class="hidden bg-gradient-to-br from-purple-900/50 via-slate-900 to-indigo-950/60 border-2 border-purple-500/40 rounded-3xl p-6 sm:p-8 glow-purple transition-all duration-500 animate-bounce-short">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="space-y-3 text-center md:text-left">
             <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold">
-              <i data-lucide="alert-circle" class="w-4 h-4"></i>
-              <span>REVELACIÓN CLAVE DEL TALLER</span>
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              <span>¡REVELACIÓN DE LA CLASE!</span>
             </div>
-            <h3 class="text-2xl sm:text-3xl font-black text-white">
-              ¡ABSOLUTAMENTE TODOS SON FALSOS! 🤖
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+              ¡NINGUNO ES REAL! Todos son creados por IA 🤖
             </h3>
             <p class="text-slate-300 text-sm sm:text-base max-w-2xl">
-              Cualquier foto de perfil en redes sociales o videojuegos puede ser generada en menos de 2 minutos por Inteligencia Artificial. <strong class="text-cyan-300">Una cara simpática o real nunca garantiza la identidad de quien está al otro lado.</strong>
+              Aunque todos parecen compañeros o chicos de su misma edad, <strong class="text-purple-300">ninguna de estas personas existe en el mundo real</strong>. Una Inteligencia Artificial las generó en menos de 3 segundos.
             </p>
           </div>
-          <button onclick="switchTab('tab-builder')" class="px-6 py-4 rounded-2xl bg-gradient-to-r from-aldeas-blue to-cyan-500 hover:from-cyan-500 hover:to-aldeas-blue text-white font-bold text-sm shadow-xl flex items-center justify-center space-x-2 transition-transform active:scale-95 whitespace-nowrap">
-            <span>Módulo 2: Crear Perfil Falso</span>
+          <button onclick="switchTab('tab-builder')" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-sm shadow-xl flex items-center justify-center space-x-2 transition-transform active:scale-95 whitespace-nowrap">
+            <span>Siguiente Paso: Ver Perfil Falso</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
+        </div>
+
+        <!-- AI Clues list -->
+        <div class="mt-6 pt-6 border-t border-purple-500/20 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 flex items-start space-x-3">
+            <i data-lucide="eye" class="w-5 h-5 text-purple-400 mt-1 flex-shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-slate-200">Mirada Perfecta / Fondo Borroso</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Los ojos casi siempre apuntan perfecto al centro y los fondos suelen ser luces abstractas.</p>
+            </div>
+          </div>
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 flex items-start space-x-3">
+            <i data-lucide="sparkles" class="w-5 h-5 text-pink-400 mt-1 flex-shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-slate-200">Piel Ultra Suave</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Sin imperfecciones, pecas o texturas naturales de la piel cotidiana.</p>
+            </div>
+          </div>
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 flex items-start space-x-3">
+            <i data-lucide="scissors" class="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-slate-200">Detalles Extraños</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Aros desiguales, cabello que se fusiona con la ropa o cadenas simétricas.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- MODULE 2: PROFILE BUILDER -->
+    <!-- SECTION 2: CONSTRUCTOR DE PERFIL FALSO -->
     <section id="tab-builder" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
         <div class="max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-3">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-3">
             <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-            <span>Módulo 2 (12 - 15 minutos)</span>
+            <span>Simulador Interactivo</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-white">
-            Simulador de Fabricación de Perfiles Falsos
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            Construyamos un Perfil "Casi Perfecto"
           </h2>
           <p class="mt-2 text-slate-300 text-sm sm:text-base">
-            Construyan en grupo el perfil de un usuario ficticio. Observen cómo agregar "Amigos en común" o "Pases de juegos" dispara el <strong class="text-purple-400">Medidor de Falsa Credibilidad</strong>.
+            Miren lo fácil que es crear la identidad de alguien en internet que parece súper amigable y de su misma edad. Seleccionen las piezas para armar este usuario.
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <!-- Controls Left -->
+        <!-- Builder Controls (Left - 7 cols) -->
         <div class="lg:col-span-7 space-y-5">
-          <!-- Step 1: Face -->
+          <!-- Step 1: Avatar -->
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <label class="text-xs font-bold uppercase tracking-wider text-cyan-400">1. Seleccionar Rostro de IA</label>
-            <div class="grid grid-cols-4 gap-3" id="builder-avatar-select"></div>
+            <label class="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center space-x-2">
+              <span>1. Elegir Foto Generada por IA</span>
+            </label>
+            <div class="grid grid-cols-4 gap-3" id="builder-avatar-select">
+              <!-- JS rendered -->
+            </div>
           </div>
 
-          <!-- Step 2: Identity -->
+          <!-- Step 2: Name & Age -->
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <label class="text-xs font-bold uppercase tracking-wider text-purple-400">2. Identidad Ficticia</label>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="builder-identity-select"></div>
+            <label class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center space-x-2">
+              <span>2. Seleccionar Identidad Simulada</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="builder-identity-select">
+              <!-- JS rendered -->
+            </div>
           </div>
 
           <!-- Step 3: Interests -->
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <label class="text-xs font-bold uppercase tracking-wider text-emerald-400">3. Gustos y "Anzuelos"</label>
-            <div class="flex flex-wrap gap-2" id="builder-interests-select"></div>
-          </div>
-
-          <!-- Step 4: Fake Mutual Friends -->
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <label class="text-xs font-bold uppercase tracking-wider text-amber-400">4. Trampa de Amigos en Común</label>
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" id="chk-mutual-friends" onchange="toggleMutualFriends()" class="w-5 h-5 rounded bg-slate-950 border-slate-800 text-cyan-500 focus:ring-0 cursor-pointer">
-              <label for="chk-mutual-friends" class="text-xs text-slate-300 cursor-pointer font-medium">
-                Poner en la bio: "Amigo de chicos de Mendoza" (+30% Credibilidad)
-              </label>
+            <label class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center space-x-2">
+              <span>3. Agregar Intereses Populares</span>
+            </label>
+            <div class="flex flex-wrap gap-2" id="builder-interests-select">
+              <!-- JS rendered -->
             </div>
           </div>
 
-          <!-- Step 5: Fake Posts -->
+          <!-- Step 4: Posts -->
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <label class="text-xs font-bold uppercase tracking-wider text-pink-400">5. Fotos Robadas para el Muro</label>
-            <div class="grid grid-cols-3 gap-2" id="builder-posts-select"></div>
+            <label class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center space-x-2">
+              <span>4. Publicar Fotos de "Vida Cotidiana" (Internet)</span>
+            </label>
+            <div class="grid grid-cols-3 gap-2" id="builder-posts-select">
+              <!-- JS rendered -->
+            </div>
           </div>
         </div>
 
-        <!-- Preview Right -->
+        <!-- Live Profile Preview (Right - 5 cols) -->
         <div class="lg:col-span-5 sticky top-20">
-          <div class="bg-slate-900 border-2 border-cyan-500/30 rounded-3xl p-5 shadow-2xl space-y-4 glow-aldeas">
-            
-            <!-- Live Credibility Meter -->
-            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-              <div class="flex justify-between items-center">
+          <div class="bg-slate-900 border-2 border-purple-500/30 rounded-3xl p-5 shadow-2xl relative overflow-hidden glow-purple">
+
+            <!-- Credibility Bar -->
+            <div class="mb-5 bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+              <div class="flex justify-between items-center mb-1.5">
                 <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
                   <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                  Medidor de Credibilidad Simulada:
+                  Nivel de Credibilidad Falsa:
                 </span>
-                <span id="credibility-percentage" class="text-base font-black text-emerald-400">20%</span>
+                <span id="credibility-percentage" class="text-sm font-extrabold text-emerald-400">30%</span>
               </div>
               <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden p-0.5">
-                <div id="credibility-bar" class="h-full bg-gradient-to-r from-amber-500 via-emerald-400 to-cyan-400 rounded-full transition-all duration-500" style="width: 20%"></div>
+                <div id="credibility-bar" class="h-full bg-gradient-to-r from-amber-500 via-emerald-400 to-green-500 rounded-full transition-all duration-500" style="width: 30%"></div>
               </div>
-              <p id="credibility-verdict" class="text-[11px] text-slate-400 leading-tight">
-                Perfil inexperto. Aún no transmite confianza.
+              <p id="credibility-verdict" class="text-[11px] text-slate-400 mt-2">
+                Parece un perfil genérico. Agrega más detalles para volverlo "súper confiable".
               </p>
             </div>
 
-            <!-- Profile Card -->
+            <!-- Social Card Header -->
             <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800 text-center relative">
-              <div class="relative w-20 h-20 mx-auto mb-2">
-                <img id="preview-avatar" src="" class="w-full h-full object-cover rounded-full border-2 border-cyan-500">
-                <span class="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+              <div class="relative w-24 h-24 mx-auto mb-3">
+                <img id="preview-avatar" src="" alt="Avatar" class="w-full h-full object-cover rounded-full border-2 border-purple-500 shadow-md">
+                <span class="absolute bottom-1 right-1 w-4 h-4 bg-emerald-500 border-2 border-slate-950 rounded-full" title="En Línea"></span>
               </div>
-              <h3 id="preview-name" class="text-base font-bold text-white">Nombre Falso</h3>
-              <p id="preview-bio" class="text-xs text-cyan-300 font-medium mt-0.5">Edad e info</p>
+              <h3 id="preview-name" class="text-lg font-bold text-white">Nombre Falso</h3>
+              <p id="preview-bio" class="text-xs text-purple-300 font-medium mt-0.5">Edad e info aquí</p>
 
-              <div id="preview-mutual-tag" class="hidden mt-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-[10px] font-bold text-amber-300">
-                <i data-lucide="users" class="w-3 h-3"></i> 15 Amigos en común (Escuelas Mendoza)
+              <!-- Interests tags -->
+              <div id="preview-interests" class="flex flex-wrap justify-center gap-1.5 mt-3">
+                <!-- JS populated -->
               </div>
-
-              <!-- Interests -->
-              <div id="preview-interests" class="flex flex-wrap justify-center gap-1 mt-3"></div>
             </div>
 
-            <!-- Posts Wall -->
-            <div>
-              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Publicaciones Ficticias:</span>
-              <div id="preview-posts" class="grid grid-cols-3 gap-2"></div>
+            <!-- Posts Grid -->
+            <div class="mt-4">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Publicaciones en su Muro:</span>
+              <div id="preview-posts" class="grid grid-cols-3 gap-2">
+                <!-- JS populated -->
+              </div>
             </div>
 
-            <!-- Reflexión Trigger -->
-            <div id="profile-warning" class="p-3.5 bg-red-950/40 border border-red-500/30 rounded-2xl text-xs text-red-200 hidden">
+            <!-- Reflection callout -->
+            <div id="profile-warning" class="mt-5 p-3.5 bg-red-950/40 border border-red-500/30 rounded-xl text-xs text-red-200 hidden">
               <p class="font-bold flex items-center gap-1.5 text-red-400">
                 <i data-lucide="alert-octagon" class="w-4 h-4"></i>
-                Pregunta de Reflexión:
+                ¡Atención a la Reflexión!
               </p>
               <p class="mt-1 text-[11px] text-slate-300">
-                Si cualquiera puede armar este perfil en 5 minutos... <strong>¿Por qué confiamos tanto en personas que solo conocemos por internet?</strong>
+                Este perfil tiene fotos de IA, publicaciones robadas de internet y exactamente tus mismos gustos. <strong>¿Confiarías en él si te invita a jugar?</strong>
               </p>
             </div>
 
@@ -440,219 +348,102 @@
       </div>
     </section>
 
-    <!-- MODULE 3: CHAT & RED FLAGS -->
-    <section id="tab-chat" class="tab-content hidden space-y-6">
+    <!-- SECTION 3: ANATOMÍA DEL ENGAÑO (ETAPAS) -->
+    <section id="tab-anatomy" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
         <div class="max-w-3xl">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-semibold mb-3">
-            <i data-lucide="message-square-warning" class="w-3.5 h-3.5"></i>
-            <span>Módulo 3 (15 minutos)</span>
+            <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+            <span>¿Cómo opera un engaño?</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-white">
-            Simulador de Chat y Detección de Banderas Rojas (Red Flags)
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            Las 4 Etapas del Grooming
           </h2>
           <p class="mt-2 text-slate-300 text-sm sm:text-base">
-            Lean la conversación simulada de chat. <strong class="text-pink-400">Hagan clic sobre los mensajes que contengan una señal de alerta o trampa de engaño</strong>.
+            Un adulto malintencionado no se presenta diciendo la verdad. Usa un proceso lento y calculado para ganarse tu confianza. Haz clic en cada etapa para entender cómo funciona.
           </p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <!-- Chat Feed -->
-        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
-          <div class="bg-slate-950 p-4 border-b border-slate-800 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="relative">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 rounded-full object-cover">
-                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-950"></span>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-sm">ProGamer_Mendoza99</h3>
-                <p class="text-[10px] text-slate-400">Servidor de Discord • Roblox Argentina</p>
-              </div>
-            </div>
-            <span class="text-xs text-pink-400 font-bold bg-pink-500/10 border border-pink-500/20 px-2.5 py-1 rounded-full">
-              Flags halladas: <span id="chat-flags-count">0</span> / 5
-            </span>
-          </div>
+      <!-- Step Timeline Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="grooming-steps-container">
+        <!-- Populated by JS -->
+      </div>
 
-          <div class="p-4 sm:p-6 space-y-4 max-h-[500px] overflow-y-auto" id="chat-messages-container">
-            <!-- JS populated -->
-          </div>
-        </div>
-
-        <!-- Flag Explanations Panel -->
-        <div class="lg:col-span-5 space-y-4">
-          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <i data-lucide="flag" class="w-4 h-4 text-pink-400"></i>
-              Banderas Rojas Identificadas:
-            </h3>
-            <p class="text-xs text-slate-400">
-              Haz clic en las oraciones sospechosas del chat para analizarlas con la clase.
-            </p>
-
-            <div id="red-flags-list" class="space-y-2.5 pt-2">
-              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-500 italic">
-                Aún no han hecho clic en ninguna bandera roja...
-              </div>
-            </div>
-          </div>
-
-          <!-- All flags complete box -->
-          <div id="chat-complete-box" class="hidden p-5 rounded-3xl bg-emerald-950/60 border border-emerald-500/40 space-y-3 glow-green">
-            <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
-              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-              <span>¡Detección Completa de Grooming!</span>
-            </div>
-            <p class="text-xs text-slate-300">
-              Desarmaron las 5 tácticas: Halagos, Regalos, Salir del juego, Pedir secretos y Presión emocional.
-            </p>
-            <button onclick="switchTab('tab-scenarios')" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-transform active:scale-95">
-              Avanzar a Casos de Estudio
-            </button>
-          </div>
-        </div>
+      <!-- Active Step Detail Display -->
+      <div id="step-detail-card" class="bg-slate-900 border-2 border-indigo-500/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden transition-all duration-300">
+        <!-- Populated by JS -->
       </div>
     </section>
 
-    <!-- MODULE 4: CASE SCENARIOS -->
-    <section id="tab-scenarios" class="tab-content hidden space-y-6">
+    <!-- SECTION 4: TRIVIAS Y CASOS PRÁCTICOS -->
+    <section id="tab-quiz" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
         <div class="max-w-3xl">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold mb-3">
-            <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i>
-            <span>Módulo 4 (12 minutos)</span>
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+            <span>Pon a prueba a la clase</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-white">
-            Casos de Estudio y Toma de Decisiones
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            ¿Qué harías en este caso?
           </h2>
           <p class="mt-2 text-slate-300 text-sm sm:text-base">
-            Situaciones reales que viven chicos de 11 y 12 años en Mendoza. Voten a mano alzada cuál es la conducta segura.
+            Analicen las siguientes situaciones reales que ocurren todos los días en juegos online y redes sociales. Voten la mejor respuesta.
           </p>
         </div>
       </div>
 
+      <!-- Quiz Card Container -->
       <div class="max-w-3xl mx-auto">
-        <div id="scenario-card" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative space-y-6">
-          <!-- JS populated -->
+        <div id="quiz-card" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative">
+          <!-- Populated by JS -->
         </div>
 
-        <div class="flex justify-center items-center space-x-2 mt-6" id="scenario-dots">
-          <!-- JS populated -->
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 5: CERTIFICATE -->
-    <section id="tab-shield" class="tab-content hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-3">
-            <i data-lucide="award" class="w-3.5 h-3.5"></i>
-            <span>Módulo 5 (10 minutos)</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-white">
-            Compromiso y Certificado Oficial del Taller
-          </h2>
-          <p class="mt-2 text-slate-300 text-sm sm:text-base">
-            Generen el Certificado del <strong>Centro de Innovación Tecnológica de Aldeas Infantiles Argentina (Filial Mendoza)</strong> para la escuela o alumno.
-          </p>
-        </div>
-      </div>
-
-      <!-- Certificate Form & Output -->
-      <div id="certificate-section" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 text-center">
-        <h3 class="text-xl font-bold text-white">Generador de Certificado Institucional</h3>
-        
-        <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-2">
-          <input type="text" id="cert-name-input" placeholder="Nombre de Escuela, Grado o Alumno" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:border-cyan-500 focus:outline-none">
-          <button onclick="generateCertificate()" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs rounded-xl transition-all">
-            Generar Certificado
-          </button>
-        </div>
-
-        <!-- Printable Certificate Output with Embedded Logo -->
-        <div id="printable-certificate" class="hidden max-w-2xl mx-auto bg-slate-950 border-4 border-cyan-500/70 rounded-3xl p-8 text-center space-y-4 glow-aldeas relative">
-          
-          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-            <div class="text-left">
-              <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Aldeas Infantiles SOS Argentina</h4>
-              <p class="text-[10px] text-slate-400">Centro de Innovación Tecnológica - Filial Mendoza</p>
-            </div>
-            <!-- Embedded Official Logo in Certificate -->
-            <div id="cert-logo-container" class="w-12 h-14 bg-white p-1 rounded-xl">
-              <svg class="w-full h-full text-[#0099e5]" viewBox="0 0 200 240" fill="currentColor">
-                <path d="M 30,10 C 18,10 10,18 10,30 L 10,95 C 10,107 18,115 30,115 L 170,115 C 182,115 190,107 190,95 L 190,30 C 190,18 182,10 170,10 Z M 20,102 L 180,102 M 55,20 C 62,20 68,26 68,33 C 68,40 62,46 55,46 C 48,46 42,40 42,33 C 42,26 48,20 55,20 Z M 145,20 C 152,20 158,26 158,33 C 158,40 152,46 145,46 C 138,46 132,40 132,33 C 132,26 138,20 145,20 Z M 55,50 C 65,50 78,57 88,72 L 72,85 C 65,75 58,70 55,70 C 52,70 45,75 38,85 L 22,72 C 32,57 45,50 55,50 Z M 145,50 C 155,50 168,57 178,72 L 162,85 C 155,75 148,70 145,70 C 142,70 135,75 128,85 L 112,72 C 122,57 135,50 145,50 Z M 100,20 L 100,102 M 90,60 C 80,50 70,55 70,55 C 70,55 75,70 90,65 Z M 110,60 C 120,50 130,55 130,55 C 130,55 125,70 110,65 Z" fill-rule="evenodd"/>
-                <text x="100" y="145" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="28" fill="#0099e5">ALDEAS</text>
-                <text x="100" y="175" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="24" fill="#0099e5">INFANTILES</text>
-                <text x="100" y="225" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="52" fill="#0099e5">SOS</text>
-              </svg>
-            </div>
-          </div>
-
-          <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider pt-2">
-            CERTIFICADO DE EMBAJADOR DIGITAL
-          </h2>
-          <p class="text-xs text-slate-400">Se otorga con orgullo a:</p>
-          <h3 id="cert-display-name" class="text-2xl font-black text-cyan-300">Estudiantes de Mendoza</h3>
-          
-          <p class="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-            Por haber completado exitosamente el Taller de Prevención de Grooming, detección de perfiles falsos por IA y Reglas de Oro para la navegación segura en entornos digitales.
-          </p>
-
-          <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-400 gap-2">
-            <span>Provincia de Mendoza, Argentina</span>
-            <span>Firma Facilitador / Facilitadora</span>
-          </div>
+        <!-- Quiz Progress Indicators -->
+        <div class="flex justify-center items-center space-x-2 mt-6" id="quiz-dots">
+          <!-- Populated by JS -->
         </div>
       </div>
     </section>
 
   </main>
 
+  <!-- Golden Rules Footer Banner -->
+  <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20">
+          <i data-lucide="check-circle" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white">Regla de Oro Digital:</h4>
+          <p class="text-xs text-slate-400">Si alguien que solo conoces en internet te incomoda o te pide secretos... ¡Háblalo de inmediato con un adulto de confianza!</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500">
+        Material Didáctico para Escuelas • 11 a 12 Años
+      </div>
+    </div>
+  </footer>
+
   <script>
+    /* ===================================================================
+       AUDIO SYNTHESIZER (Web Audio API for pure self-contained audio)
+       =================================================================== */
     let audioEnabled = true;
-    let timerSeconds = 0;
-    let timerInterval = null;
-    let isFrozen = false;
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    /* Logo Upload Handler */
-    function handleLogoUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imgUrl = e.target.result;
-          const imgEl = document.getElementById('institutional-logo-img');
-          const officialSvg = document.getElementById('official-logo-svg');
-          
-          imgEl.src = imgUrl;
-          imgEl.classList.remove('hidden');
-          if (officialSvg) officialSvg.classList.add('hidden');
-
-          // Also update certificate logo
-          const certLogoBox = document.getElementById('cert-logo-container');
-          if (certLogoBox) {
-            certLogoBox.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain">`;
-          }
-
-          playSound('success');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    /* Sound Effects Synthesizer */
     function playSound(type) {
       if (!audioEnabled || !audioCtx) return;
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
 
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.connect(gain);
       gain.connect(audioCtx.destination);
+
       const now = audioCtx.currentTime;
 
       if (type === 'click') {
@@ -661,75 +452,60 @@
         osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
         gain.gain.setValueAtTime(0.1, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
-        osc.start(now); osc.stop(now + 0.05);
+        osc.start(now);
+        osc.stop(now + 0.05);
       } else if (type === 'reveal') {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(200, now);
         osc.frequency.exponentialRampToValueAtTime(600, now + 0.3);
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-        osc.start(now); osc.stop(now + 0.3);
-      } else if (type === 'flag') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(600, now);
-        osc.frequency.exponentialRampToValueAtTime(300, now + 0.2);
         gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-        osc.start(now); osc.stop(now + 0.2);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
       } else if (type === 'success') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, now);
-        osc.frequency.setValueAtTime(659.25, now + 0.1);
-        osc.frequency.setValueAtTime(783.99, now + 0.2);
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+        osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
         gain.gain.setValueAtTime(0.15, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-        osc.start(now); osc.stop(now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.2);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+        osc.start(now);
+        osc.stop(now + 0.25);
       }
     }
 
     function toggleAudio() {
       audioEnabled = !audioEnabled;
-      document.getElementById('audio-icon').setAttribute('data-lucide', audioEnabled ? 'volume-2' : 'volume-x');
-      lucide.createIcons();
-    }
-
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        timerSeconds++;
-        const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
-        const secs = String(timerSeconds % 60).padStart(2, '0');
-        document.getElementById('workshop-timer').innerText = `${mins}:${secs}`;
-      }, 1000);
-    }
-
-    function toggleTimer() {
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        document.getElementById('timer-icon').setAttribute('data-lucide', 'play');
+      const icon = document.getElementById('audio-icon');
+      if (audioEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
       } else {
-        startTimer();
-        document.getElementById('timer-icon').setAttribute('data-lucide', 'pause');
+        icon.setAttribute('data-lucide', 'volume-x');
       }
       lucide.createIcons();
     }
 
-    function toggleFreezeMode() {
-      isFrozen = !isFrozen;
-      document.getElementById('freeze-overlay').classList.toggle('hidden', !isFrozen);
-      playSound('click');
-    }
-
+    /* ===================================================================
+       TEACHER NOTES & TAB SWITCHING LOGIC
+       =================================================================== */
     const teacherNotesMap = {
-      'tab-challenge': 'Especial Mendoza: Inicia la actividad preguntando a los chicos si reconocen estas caras de la calle o del colegio. Luego revela que son 100% IA.',
-      'tab-builder': 'Explora con la clase cómo agregar "Chicos de Mendoza" o "Robux" sube el nivel de falsa confianza en el perfil.',
-      'tab-chat': 'Pregunta al grupo: "¿En qué momento este chat dejó de parecer normal y pasó a ser sospechoso?"',
-      'tab-scenarios': 'Haz que los alumnos voten a mano alzada la opción A o B antes de revelar la opción segura.',
-      'tab-shield': 'Entrega simbólicamente el certificado del Centro de Innovación Tecnológica de Aldeas Infantiles Mendoza.'
+      'tab-challenge': 'Pide a la clase que vote a mano alzada antes de hacer clic en cada foto. Esto genera el impacto al revelar que NINGUNO existe.',
+      'tab-builder': 'Muestra cómo los intereses populares de la edad (Fortnite, Roblox) son usados como "anzuelo" para generar simpatía rápida.',
+      'tab-anatomy': 'Detente en la etapa "El Secreto". Enfatiza que los adultos que buscan hacer daño SIEMPRE piden secreto e incomodan.',
+      'tab-quiz': 'Fomente el debate en el aula. ¿Por qué la Opción A o B es peligrosa? Permite respuestas libres antes de revelar la correcta.'
     };
 
     function toggleTeacherNotes() {
-      document.getElementById('teacher-notes').classList.toggle('hidden');
+      const notesEl = document.getElementById('teacher-notes');
+      notesEl.classList.toggle('hidden');
       playSound('click');
     }
 
@@ -738,70 +514,59 @@
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
 
+      // Update Nav Buttons
       document.querySelectorAll('.nav-tab').forEach(btn => {
-        btn.classList.remove('bg-cyan-600', 'text-white', 'shadow-md');
+        btn.classList.remove('bg-purple-600/90', 'text-white', 'shadow');
         btn.classList.add('text-slate-400');
       });
 
       const activeBtn = document.getElementById(`btn-${tabId}`);
       if (activeBtn) {
-        activeBtn.classList.add('bg-cyan-600', 'text-white', 'shadow-md');
+        activeBtn.classList.add('bg-purple-600/90', 'text-white', 'shadow');
         activeBtn.classList.remove('text-slate-400');
       }
 
+      // Update Teacher Notes text
       document.getElementById('teacher-note-text').innerText = teacherNotesMap[tabId] || '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* MODULE 1 DATA & LOGIC */
+    /* ===================================================================
+       SECTION 1: AI PHOTO CHALLENGE DATA & LOGIC
+       =================================================================== */
+    // High quality AI portraits (generated style placeholders/SVG art representation with stylized features)
     const aiPhotosData = [
       {
         id: 1,
-        name: "Lucas_Gamer12",
+        name: "Lukas_Gamer12",
         age: "12 años",
         img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-        tag: "Discord",
-        clues: [
-          "Mirada ligeramente desalineada hacia el centro.",
-          "Fondo abstracto con luces borrosas irreales.",
-          "Textura de piel demasiado suave sin poros."
-        ]
+        tag: "Perfil de Discord",
+        clue: "Fondo desenfocado artificialmente y reflejo en los ojos ligeramente desalineado."
       },
       {
         id: 2,
-        name: "Sofia_Skate",
+        name: "Sofia_Skate22",
         age: "11 años",
         img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-        tag: "TikTok",
-        clues: [
-          "Aros o pendientes asimétricos.",
-          "El cabello se fusiona de forma extraña con la ropa.",
-          "Iluminación del rostro diferente al fondo."
-        ]
+        tag: "Perfil de TikTok",
+        clue: "Piel excesivamente suavizada sin poros visibles, típica de generadores de IA."
       },
       {
         id: 3,
-        name: "Mateo_Mendoza",
+        name: "Mateo_Futbol7",
         age: "12 años",
         img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80",
-        tag: "Roblox",
-        clues: [
-          "Línea de la mandíbula demasiado sintética.",
-          "Bordes de la ropa borrosos.",
-          "Pupilas con forma irregular al ampliar."
-        ]
+        tag: "Perfil de Roblox",
+        clue: "El cabello tiene hebras que se borran con la ropa o la oreja."
       },
       {
         id: 4,
-        name: "Valen_Pro",
+        name: "Valen_AnimePro",
         age: "11 años",
         img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
-        tag: "Instagram",
-        clues: [
-          "Simetría facial matemáticamente antinatural.",
-          "Patrones del fondo deformados.",
-          "Brillo artificial en el pelo."
-        ]
+        tag: "Perfil de Instagram",
+        clue: "Simetría facial matemáticamente perfecta que raramente existe en personas reales."
       }
     ];
 
@@ -810,10 +575,10 @@
     function renderAiPhotoGrid() {
       const container = document.getElementById('ai-photo-grid');
       container.innerHTML = aiPhotosData.map(photo => `
-        <div id="photo-card-${photo.id}" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-cyan-500/50 transition-all duration-300 flex flex-col">
-          <div class="relative h-60 overflow-hidden bg-slate-950">
-            <img src="${photo.img}" class="w-full h-full object-cover">
-            <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-xs font-semibold px-2.5 py-1 rounded-full text-cyan-300 border border-cyan-500/20">
+        <div id="photo-card-${photo.id}" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 flex flex-col">
+          <div class="relative h-64 overflow-hidden bg-slate-950">
+            <img src="${photo.img}" alt="${photo.name}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+            <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-xs font-semibold px-2.5 py-1 rounded-full text-purple-300 border border-purple-500/20">
               ${photo.tag}
             </span>
           </div>
@@ -823,22 +588,23 @@
               <p class="text-xs text-slate-400">Dice tener ${photo.age}</p>
             </div>
 
+            <!-- Choice Buttons -->
             <div id="photo-actions-${photo.id}" class="grid grid-cols-2 gap-2">
-              <button onclick="guessPhoto(${photo.id}, 'REAL')" class="py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600/30 hover:border-emerald-500 border border-slate-700 text-xs font-bold text-emerald-400">
+              <button onclick="guessPhoto(${photo.id}, 'REAL')" class="py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600/30 hover:border-emerald-500 border border-slate-700 text-xs font-bold text-emerald-400 transition-colors">
                 ¿REAL?
               </button>
-              <button onclick="guessPhoto(${photo.id}, 'FALSO')" class="py-2.5 rounded-xl bg-slate-800 hover:bg-red-600/30 hover:border-red-500 border border-slate-700 text-xs font-bold text-red-400">
-                ¿IA / FALSO?
+              <button onclick="guessPhoto(${photo.id}, 'FALSO')" class="py-2.5 rounded-xl bg-slate-800 hover:bg-red-600/30 hover:border-red-500 border border-slate-700 text-xs font-bold text-red-400 transition-colors">
+                ¿FALSO?
               </button>
             </div>
 
-            <div id="photo-result-${photo.id}" class="hidden space-y-2">
-              <div class="p-2.5 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-xs text-cyan-300 font-bold flex items-center justify-between">
-                <span>🤖 ¡Es FALSO (IA)!</span>
+            <!-- Result Overlay (hidden at start) -->
+            <div id="photo-result-${photo.id}" class="hidden p-3 rounded-2xl bg-purple-950/50 border border-purple-500/40 text-xs space-y-1">
+              <div class="flex items-center space-x-1.5 text-purple-300 font-bold">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+                <span>¡CREADO POR IA!</span>
               </div>
-              <button onclick="openInspector(${photo.id})" class="w-full py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 border border-cyan-500/30 text-xs text-cyan-300 font-bold flex items-center justify-center gap-1.5">
-                <i data-lucide="search" class="w-3.5 h-3.5"></i> Usar Lupa Inspectora
-              </button>
+              <p class="text-[11px] text-slate-300">${photo.clue}</p>
             </div>
           </div>
         </div>
@@ -849,60 +615,32 @@
     function guessPhoto(id, guess) {
       playSound('reveal');
       guessedPhotos[id] = guess;
-      document.getElementById(`photo-actions-${id}`).classList.add('hidden');
-      document.getElementById(`photo-result-${id}`).classList.remove('hidden');
 
+      const actionsEl = document.getElementById(`photo-actions-${id}`);
+      const resultEl = document.getElementById(`photo-result-${id}`);
+      const cardEl = document.getElementById(`photo-card-${id}`);
+
+      actionsEl.classList.add('hidden');
+      resultEl.classList.remove('hidden');
+      cardEl.classList.add('border-purple-500', 'glow-purple');
+
+      // Check if all answered
       if (Object.keys(guessedPhotos).length === aiPhotosData.length) {
         setTimeout(() => {
           document.getElementById('ai-reveal-card').classList.remove('hidden');
           playSound('success');
-          confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
-        }, 300);
+          confetti({
+            particleCount: 70,
+            spread: 60,
+            origin: { y: 0.6 }
+          });
+        }, 400);
       }
     }
 
-    function openInspector(id) {
-      playSound('click');
-      const photo = aiPhotosData.find(p => p.id === id);
-      document.getElementById('inspector-img').src = photo.img;
-      document.getElementById('inspector-clues-list').innerHTML = photo.clues.map(c => `<li>${c}</li>`).join('');
-      document.getElementById('inspector-modal').classList.remove('hidden');
-      initMagnifier();
-    }
-
-    function closeInspector() {
-      document.getElementById('inspector-modal').classList.add('hidden');
-    }
-
-    function initMagnifier() {
-      const img = document.getElementById('inspector-img');
-      const lens = document.getElementById('magnifier-lens');
-      const container = document.getElementById('magnifier-container');
-
-      lens.style.backgroundImage = `url('${img.src}')`;
-      lens.style.backgroundSize = `${img.width * 2.5}px ${img.height * 2.5}px`;
-
-      const zoom = 2.5;
-      container.onmousemove = function(e) {
-        lens.style.display = 'block';
-        const rect = container.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-        const lensW = 100, lensH = 100;
-
-        lens.style.width = lensW + 'px';
-        lens.style.height = lensH + 'px';
-        lens.style.left = (x - lensW / 2) + 'px';
-        lens.style.top = (y - lensH / 2) + 'px';
-        lens.style.backgroundPosition = `-${(x * zoom) - lensW / 2}px -${(y * zoom) - lensH / 2}px`;
-      };
-
-      container.onmouseleave = function() {
-        lens.style.display = 'none';
-      };
-    }
-
-    /* MODULE 2 DATA & LOGIC */
+    /* ===================================================================
+       SECTION 2: PROFILE BUILDER SIMULATOR LOGIC
+       =================================================================== */
     const avatars = [
       { id: 1, url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80' },
       { id: 2, url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80' },
@@ -911,31 +649,37 @@
     ];
 
     const identities = [
-      { name: 'Santi_Mendoza', age: '12 años • Séptimo Grado' },
-      { name: 'Nico_GamerPro', age: '11 años • Fan de Roblox' },
-      { name: 'Cami_Vibes', age: '12 años • Amo la música' }
+      { name: 'Santi_Gamer', age: '12 años • Séptimo Grado' },
+      { name: 'Nico_ProPlayer', age: '11 años • Le gusta el fútbol' },
+      { name: 'Cami_Vibes', age: '12 años • Ama el anime' },
+      { name: 'Tomi_Fortnite', age: '11 años • Busca grupo' }
     ];
 
-    const availableInterests = ['🎮 Fortnite', '🧱 Roblox', '⚽ Fútbol', '📱 TikTok', '🎁 Robux Gratis'];
+    const availableInterests = [
+      '🎮 Fortnite', '🧱 Roblox', '📱 TikTok', '⚽ Fútbol', 
+      '🎨 Dibujo', '🎧 Bizarrap', '🐱 Gatos', '🍿 Streaming'
+    ];
+
     const availablePosts = [
-      { id: 1, title: 'Mi Setup Gamer', img: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=300&q=80' },
-      { id: 2, title: 'Mi Mascota', img: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80' },
-      { id: 3, title: 'Tarde de Juegos', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=300&q=80' }
+      { id: 1, title: 'Mi Setup', img: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=300&q=80' },
+      { id: 2, title: 'Mi Perro', img: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80' },
+      { id: 3, title: 'Merienda', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=300&q=80' }
     ];
 
     let currentAvatar = avatars[0].url;
     let currentIdentity = identities[0];
-    let selectedInterests = ['🎮 Fortnite'];
+    let selectedInterests = ['🎮 Fortnite', '🧱 Roblox'];
     let selectedPosts = [availablePosts[0]];
-    let hasMutualFriends = false;
 
     function renderBuilderControls() {
-      document.getElementById('builder-avatar-select').innerHTML = avatars.map((av) => `
-        <button onclick="setBuilderAvatar('${av.url}')" class="rounded-xl overflow-hidden border-2 transition-all ${currentAvatar === av.url ? 'border-cyan-500 scale-105' : 'border-slate-800 opacity-60'}">
-          <img src="${av.url}" class="w-full h-14 object-cover">
+      // Avatars
+      document.getElementById('builder-avatar-select').innerHTML = avatars.map((av, idx) => `
+        <button onclick="setBuilderAvatar('${av.url}', ${idx})" class="avatar-option relative rounded-xl overflow-hidden border-2 transition-all ${currentAvatar === av.url ? 'border-purple-500 scale-105' : 'border-slate-800 opacity-60'}">
+          <img src="${av.url}" class="w-full h-16 object-cover">
         </button>
       `).join('');
 
+      // Identities
       document.getElementById('builder-identity-select').innerHTML = identities.map((id, idx) => `
         <button onclick="setBuilderIdentity(${idx})" class="p-2.5 rounded-xl bg-slate-950 border text-left text-xs transition-all ${currentIdentity.name === id.name ? 'border-cyan-500 text-cyan-300 font-bold' : 'border-slate-800 text-slate-400'}">
           <div class="truncate">${id.name}</div>
@@ -943,21 +687,23 @@
         </button>
       `).join('');
 
+      // Interests
       document.getElementById('builder-interests-select').innerHTML = availableInterests.map((interest) => {
         const isSelected = selectedInterests.includes(interest);
         return `
-          <button onclick="toggleInterest('${interest}')" class="px-3 py-1.5 rounded-xl text-xs font-medium border ${isSelected ? 'bg-cyan-500/20 border-cyan-500 text-cyan-300' : 'bg-slate-950 border-slate-800 text-slate-400'}">
+          <button onclick="toggleInterest('${interest}')" class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all border ${isSelected ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-slate-950 border-slate-800 text-slate-400'}">
             ${interest}
           </button>
         `;
       }).join('');
 
+      // Posts
       document.getElementById('builder-posts-select').innerHTML = availablePosts.map((post) => {
         const isSelected = selectedPosts.some(p => p.id === post.id);
         return `
-          <button onclick="togglePost(${post.id})" class="p-1.5 rounded-xl bg-slate-950 border text-center ${isSelected ? 'border-amber-500 opacity-100' : 'border-slate-800 opacity-40'}">
+          <button onclick="togglePost(${post.id})" class="p-1.5 rounded-xl bg-slate-950 border transition-all text-center ${isSelected ? 'border-amber-500 opacity-100' : 'border-slate-800 opacity-40'}">
             <img src="${post.img}" class="w-full h-12 object-cover rounded-lg mb-1">
-            <span class="text-[10px] text-slate-300">${post.title}</span>
+            <span class="text-[10px] text-slate-300 font-medium">${post.title}</span>
           </button>
         `;
       }).join('');
@@ -965,22 +711,38 @@
       updateBuilderPreview();
     }
 
-    function setBuilderAvatar(url) { playSound('click'); currentAvatar = url; renderBuilderControls(); }
-    function setBuilderIdentity(idx) { playSound('click'); currentIdentity = identities[idx]; renderBuilderControls(); }
-    function toggleInterest(i) {
+    function setBuilderAvatar(url) {
       playSound('click');
-      selectedInterests = selectedInterests.includes(i) ? selectedInterests.filter(x => x !== i) : [...selectedInterests, i];
+      currentAvatar = url;
       renderBuilderControls();
     }
-    function togglePost(id) {
+
+    function setBuilderIdentity(idx) {
       playSound('click');
-      selectedPosts = selectedPosts.some(p => p.id === id) ? selectedPosts.filter(p => p.id !== id) : [...selectedPosts, availablePosts.find(p => p.id === id)];
+      currentIdentity = identities[idx];
       renderBuilderControls();
     }
-    function toggleMutualFriends() {
+
+    function toggleInterest(interest) {
       playSound('click');
-      hasMutualFriends = document.getElementById('chk-mutual-friends').checked;
-      updateBuilderPreview();
+      if (selectedInterests.includes(interest)) {
+        selectedInterests = selectedInterests.filter(i => i !== interest);
+      } else {
+        selectedInterests.push(interest);
+      }
+      renderBuilderControls();
+    }
+
+    function togglePost(postId) {
+      playSound('click');
+      const exists = selectedPosts.some(p => p.id === postId);
+      if (exists) {
+        selectedPosts = selectedPosts.filter(p => p.id !== postId);
+      } else {
+        const postObj = availablePosts.find(p => p.id === postId);
+        selectedPosts.push(postObj);
+      }
+      renderBuilderControls();
     }
 
     function updateBuilderPreview() {
@@ -988,181 +750,267 @@
       document.getElementById('preview-name').innerText = currentIdentity.name;
       document.getElementById('preview-bio').innerText = currentIdentity.age;
 
-      document.getElementById('preview-mutual-tag').classList.toggle('hidden', !hasMutualFriends);
-
       document.getElementById('preview-interests').innerHTML = selectedInterests.map(i => `
-        <span class="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-semibold">${i}</span>
+        <span class="px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-semibold">${i}</span>
       `).join('');
 
       document.getElementById('preview-posts').innerHTML = selectedPosts.map(p => `
         <div class="rounded-lg overflow-hidden bg-slate-950 border border-slate-800">
-          <img src="${p.img}" class="w-full h-12 object-cover">
+          <img src="${p.img}" class="w-full h-14 object-cover">
+          <div class="p-1 text-[9px] text-center text-slate-400 truncate">${p.title}</div>
         </div>
       `).join('');
 
-      let score = 20;
-      score += selectedInterests.length * 10;
+      // Credibility calculation
+      let score = 25; // base
+      score += selectedInterests.length * 12;
       score += selectedPosts.length * 15;
-      if (hasMutualFriends) score += 30;
-      score = Math.min(score, 98);
+      score = Math.min(score, 100);
 
       document.getElementById('credibility-percentage').innerText = `${score}%`;
       document.getElementById('credibility-bar').style.width = `${score}%`;
-      document.getElementById('profile-warning').classList.toggle('hidden', score < 60);
+
+      const verdictEl = document.getElementById('credibility-verdict');
+      const warningEl = document.getElementById('profile-warning');
+
+      if (score > 70) {
+        verdictEl.innerText = "¡Súper Confiable! A los ojos de cualquiera, parece un chico o chica de la escuela.";
+        verdictEl.className = "text-[11px] text-emerald-400 font-bold mt-2";
+        warningEl.classList.remove('hidden');
+      } else {
+        verdictEl.innerText = "Agrega más intereses y fotos del muro para ver cómo gana credibilidad.";
+        verdictEl.className = "text-[11px] text-slate-400 mt-2";
+        warningEl.classList.add('hidden');
+      }
     }
 
-    /* MODULE 3 CHAT DATA & LOGIC */
-    const chatData = [
+    /* ===================================================================
+       SECTION 3: ANATOMY OF DECEPTION DATA & LOGIC
+       =================================================================== */
+    const groomingSteps = [
       {
-        id: 1,
-        sender: "ProGamer_Mendoza99",
-        text: "¡Hola bro! Te vi jugar recién. ¡Sos un crack total jugando Roblox!",
-        isFlag: false
+        step: 1,
+        title: "1. La Trampa de la Simpatía",
+        subtitle: "Intereses Comunes",
+        icon: "smile",
+        color: "text-cyan-400",
+        borderColor: "border-cyan-500",
+        summary: "Se presenta con tus mismos gustos (videojuegos, música, TikTok) para ganarse tu atención.",
+        detailTitle: "Etapa 1: Contacto e Intereses Compartidos",
+        detailText: "El adulto malintencionado no dice su edad real ni muestra sus intenciones. Se crea un avatar amigable y empieza a hablar de los juegos del momento, haciéndose pasar por alguien de 11 o 12 años que 'te entiende mejor que nadie'.",
+        exampleQuote: "“¡Hola! Vi que juegas Roblox y necesitas equipo, yo también tengo 12 años, ¿jugamos juntos?”"
       },
       {
-        id: 2,
-        sender: "ProGamer_Mendoza99",
-        text: "Ninguno de mis amigos de la escuela juega tan bien como vos. Siento que nos entendemos re bien.",
-        isFlag: true,
-        flagTitle: "1. Halagos Excesivos",
-        flagDesc: "Busca hacerte sentir especial de inmediato para ganar tu cariño rápido."
+        step: 2,
+        title: "2. Ganar Confianza",
+        subtitle: "Regalos y Escucha",
+        icon: "gift",
+        color: "text-purple-400",
+        borderColor: "border-purple-500",
+        summary: "Te hace cumplidos, te regala objetos virtuales o pases de batalla para que lo sientas un amigo.",
+        detailTitle: "Etapa 2: Construcción de Confianza y Regalos",
+        detailText: "Empieza a hablar todos los días contigo. Te escucha cuando estás triste, te dice que eres super divertido/a y te regala 'Monedas de juego', 'Robux' o 'Skins' de Fortnite para crear una deuda de gratitud.",
+        exampleQuote: "“Te regale este pase de batalla porque eres mi mejor amigo/a de internet, no se lo des a nadie más.”"
       },
       {
-        id: 3,
-        sender: "ProGamer_Mendoza99",
-        text: "Te quiero regalar 2.000 Robux hoy mismo. ¿Te gustaría tener el pase VIP?",
-        isFlag: true,
-        flagTitle: "2. Regalos Virtuales",
-        flagDesc: "Regala cosas para generar una sensación de deuda emocional."
+        step: 3,
+        title: "3. El Aislamiento",
+        subtitle: "Petición de Secretos",
+        icon: "lock",
+        color: "text-amber-400",
+        borderColor: "border-amber-500",
+        summary: "Pide que la amistad sea 'un secreto' y te sugiere no contarle a tus padres ni amigos.",
+        detailTitle: "Etapa 3: El Secreto y Alejamiento",
+        detailText: "Aquí empieza el peligro real. Intenta alejarte de la supervisión. Te pide cambiar a un chat privado (como WhatsApp o Discord personal) y exige que 'sea nuestro secreto porque los adultos no entienden nuestra amistad'.",
+        exampleQuote: "“No le cuentes a tus papás que hablamos por aquí, se van a enojar y no nos van a dejar jugar juntos.”"
       },
       {
-        id: 4,
-        sender: "ProGamer_Mendoza99",
-        text: "Pasame tu WhatsApp personal así dejamos de hablar por el chat público del juego.",
-        isFlag: true,
-        flagTitle: "3. Migración a Redes Privadas",
-        flagDesc: "Quieren llevarte a aplicaciones privadas sin moderación."
-      },
-      {
-        id: 5,
-        sender: "ProGamer_Mendoza99",
-        text: "Pero que sea un secreto entre los dos. No le cuentes a tus papás porque no lo van a entender.",
-        isFlag: true,
-        flagTitle: "4. Pedido de Secretos",
-        flagDesc: "SEÑAL MÁXIMA DE ALERTA: Pedir ocultar cosas a tu familia busca aislarte."
-      },
-      {
-        id: 6,
-        sender: "ProGamer_Mendoza99",
-        text: "Mandame una foto tuya por privado. Si no me la mandas voy a pensar que no sos mi amigo de verdad...",
-        isFlag: true,
-        flagTitle: "5. Presión y Chantaje Emocional",
-        flagDesc: "Usa la culpa para forzarte a hacer cosas incómodas."
+        step: 4,
+        title: "4. La Presión / Chantaje",
+        subtitle: "Petición Privada",
+        icon: "alert-octagon",
+        color: "text-red-400",
+        borderColor: "border-red-500",
+        summary: "Pide fotos personales o datos sensibles, amenazando con contar el secreto si no lo haces.",
+        detailTitle: "Etapa 4: La Petición Incomoda y Chantaje",
+        detailText: "Una vez que tiene el secreto guardado, empieza a pedir cosas privadas (fotos de tu cara, dirección, fotos sin remera). Si te niegas, intenta hacerte sentir culpable o amenaza con publicar tus datos.",
+        exampleQuote: "“Si no me mandas la foto, no te regalo más Robux y le voy a decir a todos que me mentiste.”"
       }
     ];
 
-    let foundFlags = [];
+    let activeGroomingStep = 1;
 
-    function renderChatSimulator() {
-      const container = document.getElementById('chat-messages-container');
-      container.innerHTML = chatData.map(msg => `
-        <div onclick="clickChatMessage(${msg.id})" id="chat-msg-${msg.id}" class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-pink-500/50 cursor-pointer transition-all space-y-1">
-          <div class="flex justify-between items-center text-[10px]">
-            <span class="font-bold text-cyan-400">${msg.sender}</span>
-            <span class="text-slate-500">16:42</span>
-          </div>
-          <p class="text-xs text-slate-200 leading-relaxed">${msg.text}</p>
-        </div>
-      `).join('');
-    }
-
-    function clickChatMessage(id) {
-      const msg = chatData.find(m => m.id === id);
-      const msgEl = document.getElementById(`chat-msg-${id}`);
-
-      if (msg.isFlag && !foundFlags.includes(id)) {
-        playSound('flag');
-        foundFlags.push(id);
-        msgEl.classList.add('border-pink-500', 'bg-pink-950/20');
-        updateFlagsPanel();
-      } else if (!msg.isFlag) {
-        playSound('click');
-        msgEl.classList.add('border-slate-700');
-      }
-    }
-
-    function updateFlagsPanel() {
-      document.getElementById('chat-flags-count').innerText = foundFlags.length;
-      const listContainer = document.getElementById('red-flags-list');
-
-      listContainer.innerHTML = foundFlags.map(id => {
-        const item = chatData.find(m => m.id === id);
+    function renderGroomingSteps() {
+      const container = document.getElementById('grooming-steps-container');
+      container.innerHTML = groomingSteps.map(st => {
+        const isActive = st.step === activeGroomingStep;
         return `
-          <div class="p-3 rounded-xl bg-pink-950/40 border border-pink-500/40 text-xs space-y-1 animate-fadeIn">
-            <div class="font-bold text-pink-300 flex items-center gap-1.5">
-              <i data-lucide="flag" class="w-3.5 h-3.5 text-pink-400"></i>
-              ${item.flagTitle}
+          <button onclick="selectGroomingStep(${st.step})" class="p-5 rounded-2xl bg-slate-900 border-2 transition-all duration-300 text-left flex flex-col justify-between space-y-4 ${isActive ? `${st.borderColor} bg-slate-800/80 shadow-lg` : 'border-slate-800 opacity-70 hover:opacity-100'}">
+            <div class="flex items-center justify-between">
+              <span class="p-2 rounded-xl bg-slate-950 border border-slate-800 ${st.color}">
+                <i data-lucide="${st.icon}" class="w-5 h-5"></i>
+              </span>
+              <span class="text-xs font-bold text-slate-500">Paso ${st.step}</span>
             </div>
-            <p class="text-[11px] text-slate-300 leading-tight">${item.flagDesc}</p>
-          </div>
+            <div>
+              <h3 class="font-bold text-white text-sm">${st.title}</h3>
+              <p class="text-[11px] text-slate-400 mt-1">${st.summary}</p>
+            </div>
+          </button>
         `;
       }).join('');
 
+      renderGroomingDetail();
       lucide.createIcons();
-
-      if (foundFlags.length === 5) {
-        playSound('success');
-        document.getElementById('chat-complete-box').classList.remove('hidden');
-        confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-      }
     }
 
-    /* MODULE 4 SCENARIOS DATA & LOGIC */
-    const scenariosData = [
+    function selectGroomingStep(stepNum) {
+      playSound('click');
+      activeGroomingStep = stepNum;
+      renderGroomingSteps();
+    }
+
+    function renderGroomingDetail() {
+      const data = groomingSteps.find(s => s.step === activeGroomingStep);
+      const detailCard = document.getElementById('step-detail-card');
+
+      detailCard.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="p-3 rounded-2xl bg-slate-950 border border-slate-800 ${data.color}">
+              <i data-lucide="${data.icon}" class="w-6 h-6"></i>
+            </span>
+            <div>
+              <h3 class="text-xl font-extrabold text-white">${data.detailTitle}</h3>
+              <p class="text-xs ${data.color} font-semibold">${data.subtitle}</p>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm leading-relaxed">
+            ${data.detailText}
+          </p>
+
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Frase típica de esta etapa:</span>
+            <p class="text-xs italic text-amber-300 font-medium">
+              ${data.exampleQuote}
+            </p>
+          </div>
+
+          <div class="pt-2 flex justify-between items-center text-xs text-slate-400">
+            <span>Haz clic en los otros pasos para ver la evolución del engaño.</span>
+            ${activeGroomingStep < 4 ? `
+              <button onclick="selectGroomingStep(${activeGroomingStep + 1})" class="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1">
+                Ver siguiente paso <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    /* ===================================================================
+       SECTION 4: QUIZ & SCENARIOS DATA & LOGIC
+       =================================================================== */
+    const quizScenarios = [
       {
         id: 1,
-        title: "Caso 1: Propuesta de encuentro presencial",
-        situation: "Llevas 3 semanas jugando online con 'Nico_Gamer'. Te propone encontrarse en la Plaza Independencia de Mendoza para regalarte una remera gamer.",
+        platform: "Roblox / Discord",
+        title: "Caso 1: Un regalo incondicional",
+        situation: "Un jugador que conociste hace 3 días en un servidor te dice que le caes muy bien y te regala 1.000 Robux. Luego te pide tu número de celular para 'hablar por WhatsApp a solas'.",
         options: [
-          { letter: "A", text: "Acepto ir solo porque jugamos hace 3 semanas y parece re amigable.", correct: false, expl: "¡Acción peligrosa! No importa el tiempo que lleven hablando por internet, en la vida real sigue siendo un desconocido." },
-          { letter: "B", text: "Rechazo la cita e informo de inmediato a mis padres o docentes.", correct: true, expl: "¡Decisión Correcta! Nunca te encuentres a solas con gente que solo conoces por una pantalla." }
+          {
+            letter: "A",
+            text: "Le doy mi número. Al final fue súper generoso regalandome los Robux.",
+            correct: false,
+            explanation: "¡Peligro! Usar regalos virtuales es la estrategia principal para generar una falsa obligación moral de dar datos personales."
+          },
+          {
+            letter: "B",
+            text: "Acepto los Robux en el juego, pero NO le doy mi número ni cambio de plataforma.",
+            correct: true,
+            explanation: "¡Correcto! Nunca debes mudar la conversación a redes privadas con desconocidos, por más amables o generosos que parezcan."
+          },
+          {
+            letter: "C",
+            text: "Le paso el número de un amigo para que lo contacte a él.",
+            correct: false,
+            explanation: "No expongas a tus amigos a riesgos con desconocidos de internet."
+          }
         ]
       },
       {
         id: 2,
-        title: "Caso 2: Pedido de foto privada",
-        situation: "Un usuario te promete darte el pase VIP de un juego si le envías una foto de tu cara en pijama por un chat privado.",
+        platform: "Instagram / TikTok",
+        title: "Caso 2: El 'Amigo de tu amigo'",
+        situation: "Te llega una solicitud de un perfil con foto de un chico de 12 años muy simpático. Tiene 500 seguidores y en su bio dice que va a una escuela cercana.",
         options: [
-          { letter: "A", text: "Le mando la foto para tener el pase VIP rápido.", correct: false, expl: "¡Alerta! Nunca compartas fotos personales ni cedas a chantajes por regalos virtuales." },
-          { letter: "B", text: "Bloqueo al usuario, saco captura de pantalla y aviso a un adulto de confianza.", correct: true, expl: "¡Respuesta Excelente! Ante peticiones incómodas: Bloquear + Avisar a la familia." }
+          {
+            letter: "A",
+            text: "Lo acepto de inmediato. Como tiene muchos seguidores y vive cerca, es de confianza.",
+            correct: false,
+            explanation: "Recuerda: Los perfiles falsos pueden comprar seguidores o inventar escuelas en la bio fácilmente."
+          },
+          {
+            letter: "B",
+            text: "Pregunto en la vida real a mis compañeros si realmente lo conocen antes de aceptar.",
+            correct: true,
+            explanation: "¡Excelente! La verificación en el mundo físico es la mejor manera de desmantelar un perfil falso."
+          }
+        ]
+      },
+      {
+        id: 3,
+        platform: "Chat de Videojuegos",
+        title: "Caso 3: La Petición del Secreto",
+        situation: "Alguien con quien juegas seguido te dice: 'Tengo un secreto que solo te puedo contar a ti, pero prométeme que no le vas a decir a tus papás o me van a banear'.",
+        options: [
+          {
+            letter: "A",
+            text: "Prometo guardar el secreto. Los amigos guardan secretos.",
+            correct: false,
+            explanation: "Cuidado: Ningún amigo real de internet te pedirá ocultarle cosas a tus padres."
+          },
+          {
+            letter: "B",
+            text: "Me da desconfianza. Le cuento de inmediato a mi mamá, papá o docente de confianza.",
+            correct: true,
+            explanation: "¡Perfecto! Un secreto que produce incomodidad o que pide ser ocultado a los padres debe contarse SIEMPRE."
+          }
         ]
       }
     ];
 
-    let currentScenarioIdx = 0;
-    let scenarioAnswered = false;
+    let currentQuizIndex = 0;
+    let quizAnswered = false;
 
-    function renderScenarioCard() {
-      const sc = scenariosData[currentScenarioIdx];
-      const container = document.getElementById('scenario-card');
+    function renderQuizCard() {
+      const q = quizScenarios[currentQuizIndex];
+      const container = document.getElementById('quiz-card');
 
       container.innerHTML = `
-        <div class="space-y-4">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
-              ${sc.title}
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold">
+              ${q.platform}
             </span>
-            <span class="text-xs text-slate-500">Caso ${currentScenarioIdx + 1} de ${scenariosData.length}</span>
+            <span class="text-xs font-semibold text-slate-500">
+              Escenario ${currentQuizIndex + 1} de ${quizScenarios.length}
+            </span>
           </div>
 
-          <p class="text-sm sm:text-base text-slate-200 bg-slate-950 p-4 rounded-2xl border border-slate-800 leading-relaxed">
-            “${sc.situation}”
-          </p>
+          <div>
+            <h3 class="text-xl font-bold text-white">${q.title}</h3>
+            <p class="mt-2 text-slate-300 text-sm sm:text-base leading-relaxed bg-slate-950 p-4 rounded-2xl border border-slate-800">
+              “${q.situation}”
+            </p>
+          </div>
 
-          <div class="space-y-3">
-            ${sc.options.map((opt, idx) => `
-              <button onclick="answerScenario(${idx})" class="w-full p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-left text-xs sm:text-sm font-medium text-slate-200 flex items-start space-x-3 transition-all">
-                <span class="w-6 h-6 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+          <div class="space-y-3" id="quiz-options-list">
+            ${q.options.map((opt, idx) => `
+              <button onclick="selectQuizOption(${idx})" class="w-full p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-left text-xs sm:text-sm font-medium text-slate-200 transition-all flex items-start space-x-3 group">
+                <span class="w-6 h-6 rounded-lg bg-slate-800 group-hover:bg-amber-500 group-hover:text-slate-950 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0 transition-colors">
                   ${opt.letter}
                 </span>
                 <span class="mt-0.5">${opt.text}</span>
@@ -1170,77 +1018,119 @@
             `).join('')}
           </div>
 
-          <div id="scenario-feedback" class="hidden p-4 rounded-2xl border text-xs sm:text-sm space-y-1"></div>
+          <div id="quiz-feedback" class="hidden p-4 rounded-2xl border text-xs sm:text-sm space-y-2">
+            <!-- Feedback filled by JS -->
+          </div>
 
-          <div class="flex justify-end pt-2">
-            <button id="btn-next-scenario" onclick="nextScenario()" class="hidden px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs flex items-center gap-1.5">
-              <span>Siguiente Caso</span>
+          <div class="flex justify-between items-center pt-2">
+            <button onclick="prevQuiz()" ${currentQuizIndex === 0 ? 'disabled class="opacity-30 cursor-not-allowed text-xs text-slate-500"' : 'class="text-xs text-slate-400 hover:text-white font-bold flex items-center gap-1"'}>
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> Anterior
+            </button>
+            <button id="btn-next-quiz" onclick="nextQuiz()" class="hidden px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-transform active:scale-95">
+              <span>Siguiente Situación</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
         </div>
       `;
 
-      renderScenarioDots();
+      renderQuizDots();
       lucide.createIcons();
     }
 
-    function answerScenario(optIdx) {
-      if (scenarioAnswered) return;
-      scenarioAnswered = true;
+    function selectQuizOption(optIdx) {
+      if (quizAnswered) return;
+      quizAnswered = true;
 
-      const sc = scenariosData[currentScenarioIdx];
-      const opt = sc.options[optIdx];
-      const fb = document.getElementById('scenario-feedback');
+      const q = quizScenarios[currentQuizIndex];
+      const selected = q.options[optIdx];
+      const feedbackEl = document.getElementById('quiz-feedback');
+      const nextBtn = document.getElementById('btn-next-quiz');
 
-      if (opt.correct) {
+      if (selected.correct) {
         playSound('success');
-        fb.className = "p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs sm:text-sm animate-fadeIn";
-        fb.innerHTML = `<strong>¡Correcto!</strong> ${opt.expl}`;
+        feedbackEl.className = "p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs sm:text-sm space-y-1 animate-fadeIn";
+        feedbackEl.innerHTML = `
+          <div class="font-bold flex items-center gap-1.5 text-emerald-400">
+            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            ¡Respuesta Correcta y Segura!
+          </div>
+          <p class="text-slate-300 text-xs mt-1">${selected.explanation}</p>
+        `;
       } else {
-        playSound('flag');
-        fb.className = "p-4 rounded-2xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs sm:text-sm animate-fadeIn";
-        fb.innerHTML = `<strong>Riesgo Detectado:</strong> ${opt.expl}`;
+        playSound('error');
+        feedbackEl.className = "p-4 rounded-2xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs sm:text-sm space-y-1 animate-fadeIn";
+        feedbackEl.innerHTML = `
+          <div class="font-bold flex items-center gap-1.5 text-red-400">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+            Opción Riesgosa
+          </div>
+          <p class="text-slate-300 text-xs mt-1">${selected.explanation}</p>
+        `;
       }
 
-      fb.classList.remove('hidden');
-      document.getElementById('btn-next-scenario').classList.remove('hidden');
+      feedbackEl.classList.remove('hidden');
+      nextBtn.classList.remove('hidden');
+      lucide.createIcons();
     }
 
-    function nextScenario() {
+    function nextQuiz() {
       playSound('click');
-      if (currentScenarioIdx < scenariosData.length - 1) {
-        currentScenarioIdx++;
-        scenarioAnswered = false;
-        renderScenarioCard();
+      if (currentQuizIndex < quizScenarios.length - 1) {
+        currentQuizIndex++;
+        quizAnswered = false;
+        renderQuizCard();
       } else {
-        switchTab('tab-shield');
+        // Quiz completed
+        alertQuizComplete();
       }
     }
 
-    function renderScenarioDots() {
-      document.getElementById('scenario-dots').innerHTML = scenariosData.map((_, idx) => `
-        <span class="w-2.5 h-2.5 rounded-full ${idx === currentScenarioIdx ? 'bg-amber-400 w-6' : 'bg-slate-800'} transition-all"></span>
+    function prevQuiz() {
+      playSound('click');
+      if (currentQuizIndex > 0) {
+        currentQuizIndex--;
+        quizAnswered = false;
+        renderQuizCard();
+      }
+    }
+
+    function renderQuizDots() {
+      const container = document.getElementById('quiz-dots');
+      container.innerHTML = quizScenarios.map((_, idx) => `
+        <span class="w-2.5 h-2.5 rounded-full transition-all ${idx === currentQuizIndex ? 'bg-amber-400 w-6' : 'bg-slate-800'}"></span>
       `).join('');
     }
 
-    /* MODULE 5 CERTIFICATE */
-    function generateCertificate() {
-      playSound('success');
-      const name = document.getElementById('cert-name-input').value.trim() || "Chicos y Chicas de Mendoza";
-      document.getElementById('cert-display-name').innerText = name;
-      document.getElementById('printable-certificate').classList.remove('hidden');
-      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+    function alertQuizComplete() {
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      const container = document.getElementById('quiz-card');
+      container.innerHTML = `
+        <div class="text-center py-8 space-y-4">
+          <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
+            <i data-lucide="award" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-2xl font-extrabold text-white">¡Completaste el Taller de Seguridad!</h3>
+          <p class="text-slate-300 text-sm max-w-md mx-auto">
+            Ahora tú y tus compañeros tienen las herramientas para detectar perfiles falsos con IA y prevenir situaciones de riesgo en internet.
+          </p>
+          <button onclick="currentQuizIndex = 0; quizAnswered = false; renderQuizCard();" class="px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-colors">
+            Reiniciar Casos de Práctica
+          </button>
+        </div>
+      `;
+      lucide.createIcons();
     }
 
-    /* INITIALIZATION */
+    /* ===================================================================
+       INITIALIZATION ON LOAD
+       =================================================================== */
     window.onload = function() {
       lucide.createIcons();
-      startTimer();
       renderAiPhotoGrid();
       renderBuilderControls();
-      renderChatSimulator();
-      renderScenarioCard();
+      renderGroomingSteps();
+      renderQuizCard();
     };
   </script>
 </body>
